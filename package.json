@@ -7,6 +7,11 @@
     "mocha",
     "saucelabs"
   ],
+  "dependencies": {
+      "mocha":"1.x",
+      "wd":"x",
+      "saucelabs":"x"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/epall/mole-sauce.git"
