@@ -68,10 +68,17 @@ function teardownWebdriver(suite, callback) {
     b.quit(function(err) {
         if(err) { return callback(err); }
         var sauce = new saucelabs({
-            username: process.env['SAUCE_USER_NAME'],
-            password: process.env['SAUCE_API_KEY']
+            username: process.env['SAUCE_USERNAME'],
+            password: process.env['SAUCE_ACCESS_KEY']
         });
-        sauce.updateJob(b.sessionID, {passed: !failed}, callback);
+        sauce.updateJob(b.sessionID, {passed: !failed}, function(err) {
+            // The saucelabs module has a habit of emitting raw objects, which
+            // Mocha gets upset about. Make them play nice together:
+            if(err && !(err instanceof Error)) {
+                err = new Error(err.toString());
+            }
+            callback(err);
+        });
     });
 }
 
