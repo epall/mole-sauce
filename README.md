@@ -15,3 +15,11 @@ npm install mole-sauce
 ## License
 
   * License - BSD
+
+## TODO
+
+* Write Usage documentation
+* Write examples
+* Write some tests
+* Properly tease out results from nested suites
+* Support running WebDriver per-test instead of per-suite
