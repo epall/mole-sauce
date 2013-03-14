@@ -1,0 +1,21 @@
+{
+  "name": "mole-sauce",
+  "version": "0.0.1",
+  "description": "Delicious Sauce OnDemand reporter for Mocha",
+  "author": "Eric Allen <eric@hackerengineer.net>",
+  "keywords": [
+    "mocha",
+    "saucelabs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/epall/mole-sauce.git"
+  },
+  "bugs": {
+    "url": "https://github.com/epall/mole-sauce/issues"
+  },
+  "engines": [
+    "node"
+  ],
+  "license": "BSD"
+}
