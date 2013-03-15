@@ -8,7 +8,9 @@ var Base = mocha.reporters.Base;
 function MoleSauce(runner) {
     Base.call(this, runner);
     this.desiredCapabilities = {};
-    this.webdriverConfig = {};
+    this.webdriverConfig = {
+        host: 'ondemand.saucelabs.com'
+    };
 
     var self = this;
     runner.on('suite', function(suite) {
@@ -25,6 +27,7 @@ function MoleSauce(runner) {
             // inside the suite so that the browser object is created
             // and ready to be used inside the suite's beforeAll.
             var hook = suite._beforeAll.pop();
+            hook.timeout(60000); // browsers can take a while to start up
             suite._beforeAll.unshift(hook);
 
             suite.afterAll(function(done) {

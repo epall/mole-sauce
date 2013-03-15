@@ -12,6 +12,9 @@
       "wd":"x",
       "saucelabs":"x"
   },
+  "scripts": {
+      "examples": "node ./examples/run"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/epall/mole-sauce.git"
