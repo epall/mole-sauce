@@ -13,7 +13,6 @@ try {
 }
 
 var mocha = new Mocha({
-    //reporter: mole,
     ui: 'tdd'
 });
 mocha.addFile(__dirname+'/example.js');

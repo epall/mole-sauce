@@ -7,23 +7,23 @@ pass/fail results will be submitted to Sauce Labs when it finishes.
 
 ## Running the examples
 
-<pre>
-git clone https://github.com/epall/mole-sauce.git
-npm install
-npm run examples
-</pre>
+    export SAUCE_USERNAME=XXXX
+    export SAUCE_ACCESS_KEY=XXXX
+    git clone https://github.com/epall/mole-sauce.git
+    cd mole-sauce
+    npm install
+    npm run examples
 
 ## Usage
 
-<pre>
-npm install https://github.com/epall/mole-sauce.git
-</pre>
+    npm install https://github.com/epall/mole-sauce.git
 
 Add `this.sauce = true` to the body of the suites you want to add mole-sauce to.
 
-<pre>
-mocha -R mole-sauce
-</pre>
+    mocha -R mole-sauce
+
+If you want to use mole-sauce in addition to a more communicative reporter,
+you'll need to invoke mocha programmatically. See examples/run.js.
 
 ## Authors
 
