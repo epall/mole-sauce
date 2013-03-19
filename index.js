@@ -11,6 +11,7 @@ function MoleSauce(runner) {
     this.webdriverConfig = {
         host: 'ondemand.saucelabs.com'
     };
+    this.local = false;
 
     var self = this;
     runner.on('suite', function(suite) {
@@ -31,7 +32,7 @@ function MoleSauce(runner) {
             suite._beforeAll.unshift(hook);
 
             suite.afterAll(function(done) {
-                teardownWebdriver(suite, done);
+                teardownWebdriver(suite, !self.local, done);
             });
         }
     });
@@ -60,7 +61,7 @@ function setupWebdriver(suite, desiredCapabilities, webdriverConfig, callback) {
     });
 }
 
-function teardownWebdriver(suite, callback) {
+function teardownWebdriver(suite, submitResults, callback) {
     var failed = suite.tests.some(function(t) {
         return t.state == 'failed';
     });
@@ -70,18 +71,22 @@ function teardownWebdriver(suite, callback) {
 
     b.quit(function(err) {
         if(err) { return callback(err); }
-        var sauce = new saucelabs({
-            username: process.env['SAUCE_USERNAME'],
-            password: process.env['SAUCE_ACCESS_KEY']
-        });
-        sauce.updateJob(b.sessionID, {passed: !failed}, function(err) {
-            // The saucelabs module has a habit of emitting raw objects, which
-            // Mocha gets upset about. Make them play nice together:
-            if(err && !(err instanceof Error)) {
-                err = new Error(err.toString());
-            }
-            callback(err);
-        });
+        if(submitResults) {
+            var sauce = new saucelabs({
+                username: process.env['SAUCE_USERNAME'],
+                password: process.env['SAUCE_ACCESS_KEY']
+            });
+            sauce.updateJob(b.sessionID, {passed: !failed}, function(err) {
+                // The saucelabs module has a habit of emitting raw objects, which
+                // Mocha gets upset about. Make them play nice together:
+                if(err && !(err instanceof Error)) {
+                    err = new Error(err.toString());
+                }
+                callback(err);
+            });
+        } else {
+            callback();
+        }
     });
 }
 
